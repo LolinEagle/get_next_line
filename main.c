@@ -6,7 +6,7 @@
 /*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 11:31:02 by frrusso           #+#    #+#             */
-/*   Updated: 2021/12/21 13:54:22 by frrusso          ###   ########.fr       */
+/*   Updated: 2021/12/21 15:51:55 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,15 @@ int	main(void)
 	int	i;
 	int	fd;
 
-	fd = open("file/notes.txt", O_RDONLY, O_CREAT);
-	i = -1;
-	while (i++ < 8)
+	fd = open("file/notes.txt", O_RDONLY);
+	i = 0;
+	while (i++ < 10)
 		printf("[%s]\n", get_next_line(fd));
 	close(fd);
-	fd = open("file/empty", O_RDONLY, O_CREAT);
-	i = -1;
-	while (i++ < 8)
-		printf("(%s)\n", get_next_line(fd));
+	write(1, "\n", 1);
+	fd = open("file/empty", O_RDONLY);
+	i = 0;
+	while (i++ < 10)
+		printf("[%s]\n", get_next_line(fd));
 	close(fd);
 }
