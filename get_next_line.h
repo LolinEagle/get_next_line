@@ -6,7 +6,7 @@
 /*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 11:31:34 by frrusso           #+#    #+#             */
-/*   Updated: 2021/12/21 13:12:19 by frrusso          ###   ########.fr       */
+/*   Updated: 2022/01/10 15:18:14 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <stddef.h>
 
 size_t	ft_strlen(const char *s);
-void	ft_bzero(void *s, size_t n);
-void	*ft_calloc(size_t nmemb, size_t size);
 char	*get_next_line(int fd);
 
 #endif

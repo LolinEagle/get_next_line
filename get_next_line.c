@@ -6,7 +6,7 @@
 /*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/20 10:50:59 by frrusso           #+#    #+#             */
-/*   Updated: 2021/12/21 15:53:08 by frrusso          ###   ########.fr       */
+/*   Updated: 2022/01/10 17:03:44 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,21 @@
 int	ft_read(int fd, char *tmp)
 {
 	int	i;
+	int	c;
 
-	i = read(fd, tmp, 1);
-	while (*tmp != '\n' && i > 0)
-	{
-		tmp++;
-		i = read(fd, tmp, 1);
-	}
-	return (i);
+	i = BUFFER_SIZE;
+	do
+		c = read(fd, tmp, 1);
+	while (*tmp++ != '\n' && c > 0 && --i)
+		;
+	*tmp = '\0';
+	return (c);
+}
+
+char	*ft_free(char *tmp)
+{
+	free(tmp);
+	return (NULL);
 }
 
 char	*get_next_line(int fd)
@@ -33,16 +40,18 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	tmp = calloc(sizeof(char), BUFFER_SIZE + 1);
-	if (ft_read(fd, tmp) <= 0)
-	{
-		free(tmp);
+	tmp = malloc(sizeof(char) * BUFFER_SIZE);
+	if (!tmp)
 		return (NULL);
-	}
-	res = calloc(sizeof(char), ft_strlen(tmp) + 1);
+	if (ft_read(fd, tmp) <= 0)
+		return (ft_free(tmp));
+	res = malloc(sizeof(char) * ft_strlen(tmp) + 1);
+	if (!res)
+		return (NULL);
 	i = -1;
 	while (tmp[++i])
 		res[i] = tmp[i];
+	res[i] = '\0';
 	free(tmp);
 	return (res);
 }
