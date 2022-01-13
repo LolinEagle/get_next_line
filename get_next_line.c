@@ -22,12 +22,12 @@ int	ft_read(int fd, char *tmp)
 	else
 		i = 4294967295;
 	r = read(fd, tmp, 1);
-	if (r == 0)
+	if (r <= 0)
 	{
 		*tmp = '\0';
 		return (r);
 	}
-	while (*tmp != '\n' && r > 0 && i--)
+	while (*tmp != '\n' && r > 0 && --i)
 	{
 		tmp++;
 		r = read(fd, tmp, 1);
@@ -59,7 +59,7 @@ char	*get_next_line(int fd)
 	if (!tmp)
 		return (NULL);
 	i = ft_read(fd, tmp);
-	if (i == 0)
+	if (i <= 0)
 		eof = 1;
 	if (i < 0)
 		return (ft_free(tmp));
