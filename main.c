@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "src/get_next_line.h"
+//Open
 #include <fcntl.h>
+//Printf
 #include <stdio.h>
 
 void	ft_putstr(char *s)
@@ -54,12 +56,12 @@ int	main(void)
 	ft_main("file/nl");
 	ft_main("file/multiple_nlx5");
 	ft_main("file/short_line");
-	//ft_main("file/41_no_nl");
-	//ft_main("file/41_with_nl");
-	//ft_main("file/42_no_nl");
-	//ft_main("file/42_with_nl");
-	//ft_main("file/43_no_nl");
-	//ft_main("file/43_with_nl");
+	ft_main("file/41_no_nl");
+	ft_main("file/41_with_nl");
+	ft_main("file/42_no_nl");
+	ft_main("file/42_with_nl");
+	ft_main("file/43_no_nl");
+	ft_main("file/43_with_nl");
 	//ft_main("file/alternate_line_nl_no_nl");
 	//ft_main("file/alternate_line_nl_with_nl");
 	//ft_main("file/big_line_no_nl");
