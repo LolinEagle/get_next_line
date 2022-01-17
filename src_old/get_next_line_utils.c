@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/17 15:33:52 by frrusso           #+#    #+#             */
-/*   Updated: 2022/01/17 15:33:55 by frrusso          ###   ########.fr       */
+/*   Created: 2021/12/21 12:49:39 by frrusso           #+#    #+#             */
+/*   Updated: 2022/01/10 15:00:36 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,28 +37,16 @@ void	*ft_calloc(size_t nmemb, size_t size)
 	return (res);
 }
 
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	while (s[i])
-		i++;
-	return (i);
-}
-
 char	*ft_strdup(const char *s)
 {
 	int		i;
 	char	*str;
 
-	str = malloc(sizeof(char) * (ft_strlen(s) + 1));
+	str = malloc(sizeof(const char) * (ft_strlen(s) + 1));
 	if (!str)
 		return (NULL);
 	i = 0;
-	while (s && s[i])
+	while (s[i])
 	{
 		str[i] = s[i];
 		i++;
@@ -67,38 +55,12 @@ char	*ft_strdup(const char *s)
 	return (str);
 }
 
-char	*ft_strchr(const char *s, int c)
+size_t	ft_strlen(const char *s)
 {
-	unsigned int	i;
-	unsigned char	*str;
+	size_t	i;
 
 	i = 0;
-	str = (unsigned char *)s;
-	while (str[i])
-	{
-		if (str[i] == (unsigned char) c)
-			return ((char *)s + i);
+	while (s[i])
 		i++;
-	}
-	if (str[i] == (unsigned char)c)
-		return ((char *)s + i);
-	return (NULL);
-}
-
-char	*ft_strchr2(const char *s, int c)
-{
-	unsigned int	i;
-	unsigned char	*str;
-
-	i = 0;
-	str = (unsigned char *)s;
-	while (str && str[i])
-	{
-		if (str[i] == (unsigned char) c)
-			return ((char *)s + i);
-		i++;
-	}
-	if (str && str[i] == (unsigned char)c)
-		return ((char *)s + i);
-	return (NULL);
+	return (i);
 }
