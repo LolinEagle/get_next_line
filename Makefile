@@ -13,7 +13,7 @@
 CC		=	gcc
 AR		=	ar -r
 RM		=	rm -f
-FLAGS	=	-Wall -Werror -Wextra -D BUFFER_SIZE=42
+FLAGS	=	-Wall -Werror -Wextra -D BUFFER_SIZE=1
 NAME	=	get_next_line.a
 SRCS	=	src/get_next_line.c src/get_next_line_utils.c
 OBJS	=	${SRCS:.c=.o}
@@ -30,14 +30,11 @@ clean:
 	${RM} ${OBJS}
 
 fclean:clean
-	${RM} ${NAME}
+	${RM} ${NAME} a.out
 
 re:fclean all
 
-git:fclean
-	${RM} a.out
-
-debug:git all
+debug:fclean all
 	${CC} ${FLAGS} main.c ${NAME} && clear && ./a.out | cat -e
 
-.PHONY: all clean fclean re
+.PHONY: all clean fclean re debug

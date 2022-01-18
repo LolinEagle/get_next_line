@@ -5,36 +5,56 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/17 15:33:52 by frrusso           #+#    #+#             */
-/*   Updated: 2022/01/17 15:33:55 by frrusso          ###   ########.fr       */
+/*   Created: 2021/12/21 12:49:39 by frrusso           #+#    #+#             */
+/*   Updated: 2022/01/10 15:00:36 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_bzero(void *s, size_t n)
+char	*ft_strchr(const char *s, int c)
 {
-	size_t	i;
-	char	*str;
+	int	i;
 
-	str = s;
 	i = 0;
-	while (i < n)
+	while (s && s[i])
 	{
-		str[i] = '\0';
+		if (s[i] == (char)c)
+			return ((char *)s + i);
 		i++;
 	}
+	if (c == '\0')
+		return ((char *)s + i);
+	return (NULL);
 }
 
-void	*ft_calloc(size_t nmemb, size_t size)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	void	*res;
+	size_t	i;
+	size_t	j;
+	char	*str;
 
-	res = malloc(nmemb * size);
-	if (!res)
+	//if (!s1 || !s2)
+	//	return (NULL);
+	i = ft_strlen(s1);
+	j = ft_strlen(s2);
+	str = malloc (sizeof(char) * (i + j + 1));
+	if (!str)
 		return (NULL);
-	ft_bzero(res, nmemb * size);
-	return (res);
+	j = 0;
+	while (s1 && s1[j])
+	{
+		str[j] = s1[j];
+		j++;
+	}
+	i = 0;
+	while (s2 && s2[i])
+	{
+		str[i + j] = s2[i];
+		i++;
+	}
+	str[i + j] = '\0';
+	return (str);
 }
 
 size_t	ft_strlen(const char *s)
@@ -47,58 +67,4 @@ size_t	ft_strlen(const char *s)
 	while (s[i])
 		i++;
 	return (i);
-}
-
-char	*ft_strdup(const char *s)
-{
-	int		i;
-	char	*str;
-
-	str = malloc(sizeof(char) * (ft_strlen(s) + 1));
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (s && s[i])
-	{
-		str[i] = s[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
-char	*ft_strchr(const char *s, int c)
-{
-	unsigned int	i;
-	unsigned char	*str;
-
-	i = 0;
-	str = (unsigned char *)s;
-	while (str[i])
-	{
-		if (str[i] == (unsigned char) c)
-			return ((char *)s + i);
-		i++;
-	}
-	if (str[i] == (unsigned char)c)
-		return ((char *)s + i);
-	return (NULL);
-}
-
-char	*ft_strchr2(const char *s, int c)
-{
-	unsigned int	i;
-	unsigned char	*str;
-
-	i = 0;
-	str = (unsigned char *)s;
-	while (str && str[i])
-	{
-		if (str[i] == (unsigned char) c)
-			return ((char *)s + i);
-		i++;
-	}
-	if (str && str[i] == (unsigned char)c)
-		return ((char *)s + i);
-	return (NULL);
 }

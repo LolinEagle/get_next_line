@@ -5,110 +5,109 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/17 15:33:15 by frrusso           #+#    #+#             */
-/*   Updated: 2022/01/17 15:33:19 by frrusso          ###   ########.fr       */
+/*   Created: 2021/12/20 10:50:59 by frrusso           #+#    #+#             */
+/*   Updated: 2022/01/12 16:04:31 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
 #include <stdio.h>
 
-char	*ft_strjoin_gnl(char *s1, char const *s2)
+char	*ft_read_and_save(int fd, char *save)
 {
-	size_t	i;
-	size_t	j;
-	char	*res;
+	char	*buff;
+	int		read_bytes;
 
-	res = ft_calloc(sizeof(char), ft_strlen(s1) + ft_strlen(s2) + 1);
-	if (!res)
+	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buff)
+		return (NULL);
+	read_bytes = 1;
+	while (!ft_strchr(save, '\n') && read_bytes != 0)
 	{
-		free(s1);
+		read_bytes = read(fd, buff, BUFFER_SIZE);
+		//printf("read_bytes=%i\n", read_bytes);
+		if (read_bytes == -1)
+		{
+			free(buff);
+			return (NULL);
+		}
+		buff[read_bytes] = '\0';
+		//printf("save=%s-buff=%s", save, buff);
+		save = ft_strjoin(save, buff);
+		//printf("save=%s", save);
+		break;
+	}
+	free(buff);
+	return (save);
+}
+
+char	*ft_get_line(char *save)
+{
+	int		i;
+	char	*s;
+
+	i = 0;
+	if (!save[i])
+		return (NULL);
+	while (save[i] && save[i] != '\n')
+		i++;
+	s = (char *)malloc(sizeof(char) * (i + 2));
+	if (!s)
+		return (NULL);
+	i = 0;
+	while (save[i] && save[i] != '\n')
+	{
+		s[i] = save[i];
+		i++;
+	}
+	if (save[i] == '\n')
+	{
+		s[i] = save[i];
+		i++;
+	}
+	s[i] = '\0';
+	return (s);
+}
+
+char	*ft_save(char *save)
+{
+	int		i;
+	int		c;
+	char	*s;
+
+	i = 0;
+	while (save[i] && save[i] != '\n')
+		i++;
+	if (!save[i])
+	{
+		free(save);
 		return (NULL);
 	}
-	i = 0;
-	while (s1 && s1[i])
-	{
-		res[i] = s1[i];
-		i++;
-	}
-	j = 0;
-	while (s2 && s2[j])
-	{
-		res[i] = s2[j];
-		i++;
-		j++;
-	}
-	free(s1);
-	res = NULL;
-	return (res);
-}
-
-long int	ft_read(int fd, char **buf, char **res)
-{	
-	int			i;
-	long int	r;
-
-	if (!(*buf))
-		return (-1);
-	r = read(fd, buf[0], 1);
-	if (r <= 0)
-		return (r);
-	while (r > 0 && !ft_strchr(res[0], '\n'))
-	{
-		i = 0;
-		while (r > 0 && ++i < BUFFER_SIZE)
-			r = read(fd, buf[0], 1);
-		buf[0][ft_strlen(buf[0]) + 1] = '\0';
-		res[0] = ft_strjoin_gnl(res[0], buf[0]);
-		//printf("r=%li buf[0][i]=%i res[0]=%s\n", r, buf[0][r], res[0]);
-	}
-	return (r);
-}
-
-void	ft_setline(char **res, char **tail)
-{
-	char	*eol;
-
-	eol = ft_strchr2(res[0], '\n');
-	free(*tail);
-	if (eol)
-	{
-		*tail = ft_strdup(eol + 1);
-		eol[1] = '\0';
-	}
-	else
-		*tail = NULL;
-}
-
-char	*ft_free(char *buf, char *fd_buf, char *res)
-{
-	free(fd_buf);
-	free(buf);
-	free(res);
-	return (NULL);
+	s = (char *)malloc(sizeof(char) * (ft_strlen(save) - i + 1));
+	if (!s)
+		return (NULL);
+	i++;
+	c = 0;
+	while (save[i])
+		s[c++] = save[i++];
+	s[c] = '\0';
+	free(save);
+	return (s);
 }
 
 char	*get_next_line(int fd)
 {
-	long int	i;
-	static char	*fd_buf[256];
-	char		*buf;
 	char		*res;
+	static char	*save;
 
-	if (fd < 0 || fd >= 255 || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < 1)
 		return (NULL);
-	buf = ft_calloc(sizeof(char), BUFFER_SIZE + 1);
-	fd_buf[fd] = ft_strjoin_gnl(fd_buf[fd], "\0");
-	res = ft_strdup(fd_buf[fd]);
-	i = ft_read(fd, &buf, &res);
-	if (i < 0 || !buf)
-		return (ft_free(buf, fd_buf[fd], res));
-	ft_setline(&res, &fd_buf[fd]);
-	if (i == 0 && !fd_buf[fd] && res)//res[0] == '\0')
-	{
-		free(res);
-		res = NULL;
-	}
-	free(buf);
+	save = ft_read_and_save(fd, save);
+	//printf("save=%s\n", save);
+	if (!save)
+		return (NULL);
+	res = ft_get_line(save);
+	save = ft_save(save);
 	return (res);
 }

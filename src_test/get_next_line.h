@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/12/20 11:31:34 by frrusso           #+#    #+#             */
-/*   Updated: 2022/01/10 15:18:14 by frrusso          ###   ########.fr       */
+/*   Created: 2022/01/17 15:33:44 by frrusso           #+#    #+#             */
+/*   Updated: 2022/01/17 15:33:46 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,11 @@
 # include <unistd.h>// size_t
 # include <stdlib.h>// malloc
 
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char const *s1, char const *s2);
+void	*ft_calloc(size_t nmemb, size_t size);
 size_t	ft_strlen(const char *s);
+char	*ft_strdup(const char *s);
+char	*ft_strchr(const char *s, int c);
+char	*ft_strchr2(const char *s, int c);
 char	*get_next_line(int fd);
 
 #endif
