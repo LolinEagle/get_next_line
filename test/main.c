@@ -10,21 +10,11 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "src/get_next_line.h"
-#include <fcntl.h>// open
-#include <stdio.h>// printf
+#include "../src/get_next_line.h"
+#include <fcntl.h>
+#include <stdio.h>
 
-void	ft_putstr(char *s)
-{
-	int	i;
-
-	if (s)
-	{
-		i = 0;
-		while (s[i])
-			write(1, &s[i++], 1);
-	}
-}
+void	check_leaks();
 
 void	ft_main(char *file)
 {
@@ -39,23 +29,21 @@ void	ft_main(char *file)
 	while (str)
 	{
 		printf("[GNL%i]%s", ++i, str);
+		free(str);
 		str = get_next_line(fd);
 	}
-	printf("[GNL%i]%s[E]\n", ++i, str);
-	printf("[GNL%i]%s[O]\n", ++i, str);
-	printf("[GNL%i]%s[F]\n", ++i, str);
+	printf("[GNL%i]%s[EOF]\n", ++i, str);
 	close(fd);
-	free(str);
 	printf("----------------------------------------------------------------\n");
 }
 
 int	main(void)
 {
 	printf("----------------------------------------------------------------\n");
+	ft_main("file/nl");
 	ft_main("file/notes");
 	ft_main("file/notes2");
 	ft_main("file/empty");
-	ft_main("file/nl");
 	ft_main("file/multiple_nlx5");
 	ft_main("file/short_line");
 	ft_main("file/41_no_nl");
@@ -66,8 +54,7 @@ int	main(void)
 	ft_main("file/43_with_nl");
 	ft_main("file/alternate_line_nl_no_nl");
 	ft_main("file/alternate_line_nl_with_nl");
-	ft_main("file/big_line_no_nl");
-	ft_main("file/big_line_with_nl");
 	ft_main("file/multiple_line_no_nl");
 	ft_main("file/multiple_line_with_nl");
+	check_leaks();
 }

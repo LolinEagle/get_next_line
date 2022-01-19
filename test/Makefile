@@ -13,9 +13,9 @@
 CC		=	gcc
 AR		=	ar -r
 RM		=	rm -f
-FLAGS	=	-Wall -Werror -Wextra -D BUFFER_SIZE=1
+FLAGS	=	-Wall -Werror -Wextra -D BUFFER_SIZE=42
 NAME	=	get_next_line.a
-SRCS	=	src/get_next_line.c src/get_next_line_utils.c
+SRCS	=	../src/get_next_line.c ../src/get_next_line_utils.c
 OBJS	=	${SRCS:.c=.o}
 
 .c.o:
@@ -35,6 +35,6 @@ fclean:clean
 re:fclean all
 
 debug:fclean all
-	${CC} ${FLAGS} main.c ${NAME} && clear && ./a.out | cat -e
+	${CC} ${FLAGS} leacks_cheker_ex.c main.c ${NAME} && clear && ./a.out | cat -e
 
 .PHONY: all clean fclean re debug
