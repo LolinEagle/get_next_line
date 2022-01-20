@@ -6,11 +6,11 @@
 /*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 15:22:31 by frrusso           #+#    #+#             */
-/*   Updated: 2022/01/20 15:22:33 by frrusso          ###   ########.fr       */
+/*   Updated: 2022/01/20 18:23:04 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_strchr(const char *s, int c)
 {

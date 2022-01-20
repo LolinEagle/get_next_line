@@ -6,11 +6,11 @@
 /*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/20 15:21:48 by frrusso           #+#    #+#             */
-/*   Updated: 2022/01/20 15:21:51 by frrusso          ###   ########.fr       */
+/*   Updated: 2022/01/20 18:21:18 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_read(int fd, char *tmp)
 {
