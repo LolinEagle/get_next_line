@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-CC		=	gcc
+CC		=	cc
 AR		=	ar -r
 RM		=	rm -f
 FLAGS	=	-Wall -Werror -Wextra -D BUFFER_SIZE=42
