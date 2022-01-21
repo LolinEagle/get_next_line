@@ -18,6 +18,8 @@ char	*ft_read(int fd, char *tmp)
 	char	*buff;
 
 	buff = malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buff)
+		return (NULL);
 	i = 1;
 	while (!ft_strchr(tmp, '\n') && i != 0)
 	{
@@ -48,6 +50,8 @@ char	*ft_get_line(char *tmp)
 	if (tmp[i] == '\n')
 		i++;
 	s = malloc(sizeof(char) * (i + 1));
+	if (!s)
+		return (NULL);
 	i = 0;
 	while (tmp[i] && tmp[i] != '\n')
 	{
