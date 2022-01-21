@@ -52,12 +52,9 @@ char	*ft_get_line(char *tmp)
 	s = malloc(sizeof(char) * (i + 1));
 	if (!s)
 		return (NULL);
-	i = 0;
-	while (tmp[i] && tmp[i] != '\n')
-	{
+	i = -1;
+	while (tmp[++i] && tmp[i] != '\n')
 		s[i] = tmp[i];
-		i++;
-	}
 	if (tmp[i] == '\n')
 	{
 		s[i] = tmp[i];
