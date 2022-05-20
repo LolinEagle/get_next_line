@@ -35,6 +35,6 @@ fclean:clean
 re:fclean all
 
 debug:fclean all
-	${CC} ${FLAGS} leacks_cheker_ex.c main.c ${NAME} && clear && ./a.out | cat -e
+	${CC} ${FLAGS} main.c ${NAME} && clear && ./a.out | cat -e
 
 .PHONY: all clean fclean re debug

@@ -14,8 +14,6 @@
 #include <fcntl.h>// open
 #include <stdio.h>// printf
 
-void	check_leaks();
-
 char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	i;
@@ -133,6 +131,5 @@ int	main(void)
 	ft_main("43_no_nl");
 	ft_main("43_with_nl");
 	ft_main_2();
-	check_leaks();
 	ft_main_3();
 }
